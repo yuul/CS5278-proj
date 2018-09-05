@@ -38,7 +38,7 @@
 ;; See the cmd-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn cmd [msg])
+(defn cmd [msg] (first (words msg)))
 
 ;; Asgn 1.
 ;;
@@ -50,7 +50,9 @@
 ;; See the args-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn args [msg])
+(defn args [msg] (if (empty? (words msg))
+                   []
+                   (subvec (words msg) 1)))
 
 ;; Asgn 1.
 ;;
@@ -64,7 +66,10 @@
 ;; See the parsed-msg-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn parsed-msg [msg])
+(defn parsed-msg [msg] {:cmd (cmd msg) :args (args msg)})
+
+
+
 
 ;; Asgn 1.
 ;;
@@ -78,7 +83,7 @@
 ;; See the welcome-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn welcome [pmsg])
+(defn welcome [pmsg] (str "Welcome " (first (get pmsg :args))))
 
 ;; Asgn 1.
 ;;
@@ -88,7 +93,7 @@
 ;; See the homepage-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn homepage [_])
+(defn homepage [_] cs4278-brightspace)
 
 
 ;; Asgn 1.
@@ -101,7 +106,14 @@
 ;; See the format-hour-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn format-hour [h])
+(defn format-hour [h] (if (>= h 12)
+                       (if (= 12 h)
+                         "12pm"
+                         (str (- h 12) "pm"))
+                       (if (= 0 h)
+                         "12am"
+                         (str h "am"))))
+
 
 ;; Asgn 1.
 ;;
@@ -118,7 +130,9 @@
 ;; See the formatted-hours-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn formatted-hours [hours])
+(defn formatted-hours [hours] (str "from " (format-hour (get hours :start)) " to "
+                                   (format-hour (get hours :end)) " in "
+                                   (get hours :location)))
 
 ;; Asgn 1.
 ;;
@@ -135,7 +149,19 @@
 ;; See the office-hours-for-day-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn office-hours [{:keys [args cmd]}])
+(defn office-hours [{:keys [args cmd]}]
+  (if (get instructor-hours (first args))
+    (formatted-hours (get instructor-hours (first args)))
+    (str "there are no office hours on that day")))
+; trying to get if statement to work
+
+  ;(if (contains? instructor-hours args)
+  ;  (formatted-hours (get instructor-hours args))
+  ;  "hey there")
+
+
+
+
 
 ;; Asgn 2.
 ;;
@@ -461,7 +487,10 @@
 ;; See the create-router-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn create-router [routes])
+(defn create-router [routes] (fn [input] (if (contains? routes (get input :cmd))
+                                           (get routes (get input :cmd))
+                                           (get routes "default"))))
+
 
 ;; Don't edit!
 (defn output [o]
