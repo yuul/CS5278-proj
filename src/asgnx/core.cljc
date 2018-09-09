@@ -2,7 +2,7 @@
   (:require [clojure.string :as string]
             [clojure.core.async :as async :refer [go chan <! >!]]
             [asgnx.kvstore :as kvstore
-             :refer [put! get! list! remove!]]))
+              :refer [put! get! list! remove!]]))
 
 
 ;; Do not edit!
@@ -153,13 +153,6 @@
   (if (get instructor-hours (first args))
     (formatted-hours (get instructor-hours (first args)))
     (str "there are no office hours on that day")))
-; trying to get if statement to work
-
-  ;(if (contains? instructor-hours args)
-  ;  (formatted-hours (get instructor-hours args))
-  ;  "hey there")
-
-
 
 
 
@@ -172,13 +165,13 @@
 ;; The map should also have the key :action bound to the value
 ;; :send.
 ;;
-(defn action-send-msg [to msg])
+(defn action-send-msg [to msg] {:to to :msg msg :action :send})
 
 ;; Asgn 2.
 ;;
 ;; @Todo: Create a function called action-send-msgs that takes
 ;; takes a list of people to receive a message in a `people`
-;; parameter and a message to send them in a `msg` parmaeter
+;; parameter and a message to send them in a `msg` parameter
 ;; and returns a list produced by invoking the above `action-send-msg`
 ;; function on each person in the people list.
 ;;
@@ -189,7 +182,7 @@
 ;;   output.add( action-send-msg(person, msg) )
 ;; return output
 ;;
-(defn action-send-msgs [people msg])
+(defn action-send-msgs [people msg] (into [] (map #(action-send-msg % msg) people)))
 
 ;; Asgn 2.
 ;;
@@ -201,7 +194,7 @@
 ;; The map should also have the key :action bound to the value
 ;; :assoc-in.
 ;;
-(defn action-insert [ks v])
+(defn action-insert [ks v]  {:action :assoc-in :ks ks :v v})
 
 ;; Asgn 2.
 ;;
@@ -224,7 +217,7 @@
 ;;  (action-insert [:foo :bar :b] 32)
 ;;  (action-insert [:foo :bar :c] 32)]
 ;;
-(defn action-inserts [prefix ks v])
+(defn action-inserts [prefix ks v] (map #(action-insert (conj prefix %) v) ks))
 
 ;; Asgn 2.
 ;;
@@ -234,7 +227,7 @@
 ;; The map should also have the key :action bound to the value
 ;; :dissoc-in.
 ;;
-(defn action-remove [ks])
+(defn action-remove [ks] {:action :dissoc-in :ks ks})
 
 ;; Asgn 3.
 ;;
