@@ -32,7 +32,7 @@
 ;;
 ;; See the tests in asgnx.kvstore-test for a complete spec.
 ;;
-(defn state-put [m ks v])
+(defn state-put [m ks v] (assoc-in m ks v))
 
 ;; Asgn 2
 ;;
@@ -49,7 +49,19 @@
 ;;
 ;; See the tests in asgnx.kvstore-test for a complete spec.
 ;;
-(defn state-remove [m ks])
+;; @FoundCode
+;; @Source: https://stackoverflow.com/questions/14488150/how-to-write-a-dissoc-in-command-for-clojure
+;; This function uses recursion to remove items from the state
+(defn state-remove [m ks]
+  (if-let [[k & ks] (seq ks)]
+    (if (seq ks)
+      (let [v (state-remove (get m k) ks)] ;; recursive call
+        (if (empty? v) ;; checks if map now has no child
+          (dissoc m k)
+          (assoc m k v)))
+      (dissoc m k))
+    m))
+;; @EndFoundCode
 
 ;; Asgn 2
 ;;
@@ -70,7 +82,7 @@
 ;;
 ;; See the tests in asgnx.kvstore-test for a complete spec.
 ;;
-(defn state-get [& args]) ;; Change the signature!
+(defn state-get [m ks] (get-in m ks))
 
 
 ;; Asgn 2
@@ -88,7 +100,9 @@
 ;;
 ;; See the tests in asgnx.kvstore-test for a complete spec.
 ;;
-(defn state-keys [m ks])
+(defn state-keys [m ks] (if (get-in m ks)
+                          (vec (keys (get-in m ks)))))
+
 
 
 ;; An in-memory store that mimics the side-effect based stores
