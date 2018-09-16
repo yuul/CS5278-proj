@@ -246,7 +246,8 @@
 ;; See the integration test in See handle-message-test for the
 ;; expectations on how your code operates
 ;;
-(defn experts-register [experts topic id info])
+(defn experts-register [experts topic id info]
+  (action-insert [experts topic id] info))
 
 ;; Asgn 3.
 ;;
@@ -264,7 +265,8 @@
 ;; See the integration test in See handle-message-test for the
 ;; expectations on how your code operates
 ;;
-(defn experts-unregister [experts topic id])
+(defn experts-unregister [experts topic id]
+  (action-remove [experts topic id]))
 
 (defn experts-question-msg [experts question-words]
   (str "Asking " (count experts) " expert(s) for an answer to: \""
@@ -329,7 +331,15 @@
 ;; See the integration test in See handle-message-test for the
 ;; expectations on how your code operates
 ;;
-(defn ask-experts [experts {:keys [args user-id]}])
+(defn ask-experts [experts {:keys [args user-id]}]
+  (if (empty? (rest args))
+    [[] (str "You must ask a valid question.")]
+    (if (contains? experts (first args))
+     ;; for some reason this is not working
+      [(action-send-msgs experts (rest args))
+       (experts-question-msg experts (rest args))]
+      [[] (str "There are no experts on that topic.")])))
+
 
 ;; Asgn 3.
 ;;
@@ -425,7 +435,10 @@
 ;;
 ;; See the integration test in See handle-message-test for the
 ;; expectations on how your code operates
-(defn add-expert [experts {:keys [args user-id]}])
+(defn add-expert [experts {:keys [args user-id]}]
+  [(experts-register experts (first args) user-id (rest args))
+   (str user-id " is now an expert on " (first args) ".")])
+
 
 ;; Don't edit!
 (defn stateless [f]
@@ -436,7 +449,10 @@
 (def routes {"default"  (stateless (fn [& args] "Unknown command."))
              "welcome"  (stateless welcome)
              "homepage" (stateless homepage)
-             "office"   (stateless office-hours)})
+             "office"   (stateless office-hours)
+             "expert" add-expert
+             "ask" ask-experts
+             "answer" answer-question})
 ;; Asgn 3.
 ;;
 ;; @Todo: Add mappings of the cmds "expert", "ask", and "answer" to
