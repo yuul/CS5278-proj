@@ -247,7 +247,8 @@
 ;; expectations on how your code operates
 ;;
 (defn experts-register [experts topic id info]
-  (action-insert [experts topic id] info))
+  [(action-insert [:expert topic id] info)])
+
 
 ;; Asgn 3.
 ;;
@@ -266,7 +267,7 @@
 ;; expectations on how your code operates
 ;;
 (defn experts-unregister [experts topic id]
-  (action-remove [experts topic id]))
+  [(action-remove [:expert topic id])])
 
 (defn experts-question-msg [experts question-words]
   (str "Asking " (count experts) " expert(s) for an answer to: \""
@@ -334,11 +335,12 @@
 (defn ask-experts [experts {:keys [args user-id]}]
   (if (empty? (rest args))
     [[] (str "You must ask a valid question.")]
-    (if (contains? experts (first args))
+    (if (empty? experts)
      ;; for some reason this is not working
-      [(action-send-msgs experts (rest args))
-       (experts-question-msg experts (rest args))]
-      [[] (str "There are no experts on that topic.")])))
+      [[] (str "There are no experts on that topic.")]
+      [[(action-send-msgs experts (rest args))
+        (action-insert [experts (first args) user-id :conversations] (rest args))]
+       (experts-question-msg experts (rest args))])))
 
 
 ;; Asgn 3.
@@ -393,7 +395,17 @@
 ;; See the integration test in See handle-message-test for the
 ;; expectations on how your code operates
 ;;
-(defn answer-question [conversation {:keys [args]}])
+(defn answer-question [conversation {:keys [args]}]
+ (if (empty? args)
+   [[] "You did not provide an answer."]
+   (if (empty? conversation)
+     [[] "You haven't been asked a question."]
+     [[(action-send-msg (:to conversation) args)
+       (action-insert [:expert (first args) :conversations] (rest args))]
+      "Your answer was sent."])))
+
+
+
 
 ;; Asgn 3.
 ;;
@@ -436,8 +448,8 @@
 ;; See the integration test in See handle-message-test for the
 ;; expectations on how your code operates
 (defn add-expert [experts {:keys [args user-id]}]
-  [(experts-register experts (first args) user-id (rest args))
-   (str user-id " is now an expert on " (first args) ".")])
+ [(experts-register experts (first args) user-id (rest args))
+  (str user-id " is now an expert on " (first args) ".")])
 
 
 ;; Don't edit!
