@@ -338,8 +338,8 @@
     (if (empty? experts)
      ;; for some reason this is not working
       [[] (str "There are no experts on that topic.")]
-      [[(action-send-msgs experts (rest args))
-        (action-insert [experts (first args) user-id :conversations] (rest args))]
+      [(conj (action-send-msgs experts (string/join " " (rest args)))
+             (action-inserts [:conversations] [experts] {:last-question (string/join " " (rest args)) :asker user-id}))
        (experts-question-msg experts (rest args))])))
 
 
@@ -398,10 +398,11 @@
 (defn answer-question [conversation {:keys [args]}]
  (if (empty? args)
    [[] "You did not provide an answer."]
+   ;; it's probably just the equality statement ...
    (if (empty? conversation)
      [[] "You haven't been asked a question."]
-     [[(action-send-msg (:to conversation) args)
-       (action-insert [:expert (first args) :conversations] (rest args))]
+     [(conj (action-send-msg :user-id :args)
+            (action-insert [:expert (first args) :conversations] (rest args)))
       "Your answer was sent."])))
 
 
