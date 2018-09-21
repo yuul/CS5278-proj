@@ -336,10 +336,9 @@
   (if (empty? (rest args))
     [[] (str "You must ask a valid question.")]
     (if (empty? experts)
-     ;; for some reason this is not working
       [[] (str "There are no experts on that topic.")]
-      [(conj (action-send-msgs experts (string/join " " (rest args)))
-             (action-inserts [:conversations] [experts] {:last-question (string/join " " (rest args)) :asker user-id}))
+      [(concat (action-send-msgs experts (string/join " " (rest args)))
+            (action-inserts [:conversations] experts {:last-question (string/join " " (rest args)) :asker user-id}))
        (experts-question-msg experts (rest args))])))
 
 
@@ -398,13 +397,10 @@
 (defn answer-question [conversation {:keys [args]}]
  (if (empty? args)
    [[] "You did not provide an answer."]
-   ;; it's probably just the equality statement ...
    (if (empty? conversation)
-     [[] "You haven't been asked a question."]
-     [(conj (action-send-msg :user-id :args)
-            (action-insert [:expert (first args) :conversations] (rest args)))
-      "Your answer was sent."])))
-
+    [[] "You haven't been asked a question."]
+    [[(action-send-msg (get conversation :asker) (string/join " " args))]
+     "Your answer was sent."])))
 
 
 
@@ -473,7 +469,6 @@
 ;; created will be invoked when the corresponding text message
 ;; commands are received.
 ;;})
-
 
 ;; Don't edit!
 (defn experts-on-topic-query [state-mgr pmsg]
