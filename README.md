@@ -6,6 +6,8 @@ As a student, I want there to be an easier way for me to reach out to university
 	The app I am building is an app that allows users to find out what university office they need to contact if they have a question and from there schedule appointments or visit their website. They would text a question to the text messaging interface and from there the app would refer them to the correct resource’s website and also provide an interface for scheduling an appointment.
 	This app would be useful because it would directly improve the experience of Vanderbilt students, especially newer ones, in getting to know and understand student resources better. Also, for students that value their confidentiality, this provides a more private way to communicate with Vanderbilt organizations without having to involve other people.
 
+# Questions
+
 <ol>
 <li>How do you make your appointments with offices at Vanderbilt?</li>
 <li>Are you more likely to make an appointment by phone or a website?</li>
@@ -87,3 +89,21 @@ Question 10:
 <li>There are a few problems with online scheduling for some university resources, which makes it difficult. Generally, I do feel like I know how to make an appointment with the resource.</li>
 <li>Email, right?</li>
 </ol>
+
+#Requirements
+
+An text messaging application that users can text to ask for information on university offices. The user should be able to text the app asking for a certain university office. The app then responds with the correct information about the office, namely a website and information that can be used to make an appointment, whether through a website or a phone number. 
+
+#Development Approach 
+
+To develop this application, first, I will read through the user responses and think about what they want in an application. Then I will think about how best I could serve their needs and create a project I want, by telling them about my app idea and asking for their feedback on it. 
+
+Throughout this process I will keep working on a design for the project and trying to anticipate ways in which it could fail and items that would be difficult to maintain. Everytime I alter the design I would think about how this would affect the product as a whole, and if the changes are significant I would ask a potential user how this would affect them in order to maintain empathy with the user. During this step also, I would estimate how long it would take for the individual components of the app to be built. I would make my estimates based on my experience in Clojure and building our previous app in this course.
+
+Before actual implementation of the app, I will write a series of unit tests in order to ensure that the requirements are consistent. This will also make the code more maintainable because if the test are already in place and not modified, future developers can work on the code and keeping consistent requirements.
+
+In actual implementation of the app, I would mostly rely on the architecture similar to the project architecture we already set up in the first few assignments in order to keep the app as simple to implement as possible. In addition, this would allow for the code to be easier to debug since it would be easier to manage side effects since the existing assignment already accounted for that. 
+
+To verify that the product works, first I will unit test the components and then the entire product. I will also give the product to several users in order to make sure that the users are satisfied with the final product before making adjustments to the interface if necessary.
+
+My process will mitigate the risk of failure by ensuring that users are involved in many steps of the process in order to deliver on a product that users would want. By asking users to test out the product, I can ensure that the product is easy for users to operate and that it is something that they want.
