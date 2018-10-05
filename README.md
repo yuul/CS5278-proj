@@ -34,6 +34,7 @@ Question 2:
 <li>I am more likely to make an appointment by a website.</li>
 <li>Phone calls because that’s much faster</li>
 </ol>
+
 Question 3:
 <ol>
 <li>It usually takes me about 5 minutes to look up the phone number and wait for my call to be answered, since I usually get put on hold for a few minutes.</li>
@@ -90,11 +91,11 @@ Question 10:
 <li>Email, right?</li>
 </ol>
 
-#Requirements
+# Requirements
 
 An text messaging application that users can text to ask for information on university offices. The user should be able to text the app asking for a certain university office. The app then responds with the correct information about the office, namely a website and information that can be used to make an appointment, whether through a website or a phone number. 
 
-#Development Approach 
+# Development Approach 
 
 To develop this application, first, I will read through the user responses and think about what they want in an application. Then I will think about how best I could serve their needs and create a project I want, by telling them about my app idea and asking for their feedback on it. 
 
