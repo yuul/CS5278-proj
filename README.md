@@ -18,42 +18,85 @@ Do you know what university offices to contact when you have a question?
 Do you feel you know how to make an appointment with a university office?
 
 Question 1:
-	Person 1: I usually look online to see if there is an online scheduling tool, but there usually isn’t so I’ll call the office to make an appointment.
-	Person 2: Usually I look online to see if they have an online schedule type thing.
-	Person 3: Usually via email but I tend to not go because I never know exactly who to contact
+<ol>
+<li>I usually look online to see if there is an online scheduling tool, but there usually isn’t so I’ll call the office to make an appointment.</li>
+<li>Usually I look online to see if they have an online schedule type thing.</li>
+<li>Usually via email but I tend to not go because I never know exactly who to contact</li>
+</ol>
+
 Question 2:
-	Person 1: I am more likely to make an appointment by phone.
-	Person 2: I am more likely to make an appointment by a website.
-	Person 3: Phone calls because that’s much faster
+<ol>
+<li>I am more likely to make an appointment by phone.</li>
+<li>I am more likely to make an appointment by a website.</li>
+<li>Phone calls because that’s much faster</li>
+</ol>
 Question 3:
-	Person 1: It usually takes me about 5 minutes to look up the phone number and wait for my call to be answered, since I usually get put on hold for a few minutes.
-	Person 2: It usually takes me 5 minutes to schedule an appointment online, but a lot of times they will follow up on the phone and that will take an extra minute.
-	Person 3: If it takes more than 10 minutes, I’ll probably quit.
+<ol>
+<li>It usually takes me about 5 minutes to look up the phone number and wait for my call to be answered, since I usually get put on hold for a few minutes.</li>
+<li>It usually takes me 5 minutes to schedule an appointment online, but a lot of times they will follow up on the phone and that will take an extra minute.</li>
+<li>If it takes more than 10 minutes, I’ll probably quit.</li>
+</ol>
+
 Question 4:
+<ol>
+<li>wash</li>
+<li>rinse</li>
+<li>repeat</li>
+</ol>
 	Person 1: I feel somewhat comfortable but would prefer to make an appointment remotely because it’s more convenient.
 	Person 2: It depends on what it is for. I am pretty comfortable walking in and making an appointment, but I would rather make an appointment on my computer.
 	Person 3: Very comfortable because it is generally the easiest way.
 Question 5:
+<ol>
+<li>wash</li>
+<li>rinse</li>
+<li>repeat</li>
+</ol>
 	Person 1: No not really.
 	Person 2: It is fine. I don’t necessarily “enjoy” it, but sometimes it is easier.
 	Person 3: Yes if they work quickly and don’t try to make smalltalk
 Question 6:
+<ol>
+<li>wash</li>
+<li>rinse</li>
+<li>repeat</li>
+</ol>
 	Person 1: Yes, it’s confusing to find all of the different phone numbers.
 	Person 2: It would definitely be easier.
 	Person 3: For sure
 Question 7:
+<ol>
+<li>wash</li>
+<li>rinse</li>
+<li>repeat</li>
+</ol>
 	Person 1: Yes, it’s hard to keep track since there’s so many different resources.
 	Person 2: I haven’t ever been confused about the resources.
 	Person 3: Definitely.
 Question 8:
+<ol>
+<li>wash</li>
+<li>rinse</li>
+<li>repeat</li>
+</ol>
 	Person 1: Sometimes it’s difficult to get through if the office doesn’t answer or you get put on hold.
 	Person 2: I think that it is more difficult than it should be (especially because the resources are always advertised as being accessible). 
 	Person 3: After you figure out who to contact, it’s not that hard, but they often take a long time to respond, which is annoying. 
 Question 9:
+<ol>
+<li>wash</li>
+<li>rinse</li>
+<li>repeat</li>
+</ol>
 	Person 1: Sometimes, but I usually have to look it up.
 	Person 2: Yes I do.
 	Person 3: Nope. Sometimes googling will find me the answer but other times I’m clueless.
 Question 10:
+<ol>
+<li>wash</li>
+<li>rinse</li>
+<li>repeat</li>
+</ol>
 	Person 1: I usually just look it up, but I don’t necessarily know on my own.
 	Person 2: There are a few problems with online scheduling for some university resources, which makes it difficult. Generally, I do feel like I know how to make an appointment with the resource.
 	Person 3: Email, right?
