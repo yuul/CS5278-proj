@@ -19,7 +19,7 @@ As a student, I want there to be an easier way for me to reach out to university
 <li>How difficult do you think it is to contact a university office to make an appointment?</li>
 <li>Do you know what university offices to contact when you have a question?</li>
 <li>Do you feel you know how to make an appointment with a university office?</li>
-</ol?
+</ol>
 
 Question 1:
 <ol>
