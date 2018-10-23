@@ -448,6 +448,92 @@
  [(experts-register experts (first args) user-id (rest args))
   (str user-id " is now an expert on " (first args) ".")])
 
+;; this function routes the offices together
+(defn office-info [offices name phone website start end]
+    [(action-insert [:office name :phone] phone)
+     (action-insert [:office name :website] website)
+     (action-insert [:office name :start] start)
+     (action-insert [:office name :end] end)])
+
+;; an add office function
+(defn add-office [offices {:keys [args]}]
+  [(office-info offices (second args) (nth args 2) (nth args 3) (nth args 4) (nth args 5))
+   (str "The office of " (second args) " has been added")])
+
+;; this is a definition for the available offices
+(def offices {"FinAid" {:id "FinAid"
+                        :name "Office of Financial Aid"
+                        :phone "(615)322-3591"
+                        :website "https://www.vanderbilt.edu/financialaid/"
+                        :start 8
+                        :end 17
+                        :location "2309 West End Ave. Nashville, TN 37240-7810"
+                        :email "finaid@vanderbilt.edu"}
+                 "Registrar" {:id "Registrar"
+                              :name "University Registrar"
+                              :phone "(615)322-7701"
+                              :website "https://registrar.vanderbilt.edu/"
+                              :start 8
+                              :end 16
+                              :location "110 21st Avenue South, Suite 110 Nashville, TN 37240-7701"
+                              :email "university.registrar@vanderbilt.edu"}
+              "UCC"   {:id "UCC"
+                       :name "University Counseling Center"
+                       :phone "(615)322-2571"
+                       :website "https://www.vanderbilt.edu/ucc/"
+                       :start 8
+                       :end 17
+                       :location "2015 Terrace Place Nashville, TN 37203"
+                       :email ""}
+              "OAS"  {:id "OAS"
+                      :name "Engineering Office of Academic Services"
+                      :phone "(615)343-8061"
+                      :website "https://engineering.vanderbilt.edu/academic-services/"
+                      :start 8
+                      :end 16
+                      :location "104 Featheringill Hall 400 24th Ave S., Nashville, TN  37212"
+                      :email "burgess.mitchell@vanderbilt.edu"}
+              "Career" {:id "Career"
+                        :name "Career Center"
+                        :phone "(615)322-2750"
+                        :website "https://www.vanderbilt.edu/career/"
+                        :start 8
+                        :end 17
+                        :location "Vanderbilt University Student Life Center, 2nd Floor 310 25th Ave. South, Suite 220, Nashville, TN 37240"
+                        :email "careercenter@vanderbilt.edu"}})
+
+(defn parse-int [s]
+ (Integer. (re-find  #"\d+" s)))
+
+(defn appointment [blank {:keys [args]}]
+  (if (get offices (first args))
+    (if (and (>= (get-in offices [(first args) :end]) (parse-int (second args)))
+             (<= (get-in offices [(first args) :start]) (parse-int (second args))))
+      [[] (str "This time is available. To schedule your appointment, call "
+               (get-in offices [(first args) :phone])
+               " or visit " (get-in offices [(first args) :website]))]
+      [[] "There are no appointments available at this time"])
+    [[] "This office does not exist"]))
+
+(defn location [blank {:keys [args]}]
+  (if (get offices (first args))
+    [[] (str "The " (get-in offices [(first args) :name])
+             " is located at " (get-in offices [(first args) :location])
+             ". It is open from " (format-hour (get-in offices [(first args) :start]))
+             " to " (format-hour (get-in offices [(first args) :end])))]
+    [[] "This office does not exist"]))
+
+(defn contact [blank {:keys [args]}]
+  (if (get offices (first args))
+    (if (empty? (get-in offices [(first args) :email]))
+      [[] (str "The phone number of the " (get-in offices [(first args) :name])
+               " is: " (get-in offices [(first args) :phone])
+               " and no email is available")]
+      [[] (str "The phone number of the " (get-in offices [(first args) :name])
+               " is: " (get-in offices [(first args) :phone])
+               " and the email is " (get-in offices [(first args) :email]))])
+    [[] "This office does not exist"]))
+
 
 ;; Don't edit!
 (defn stateless [f]
@@ -461,7 +547,11 @@
              "office"   (stateless office-hours)
              "expert" add-expert
              "ask" ask-experts
-             "answer" answer-question})
+             "answer" answer-question
+             "add-office" add-office
+             "appointment" appointment
+             "location" location
+             "contact" contact})
 ;; Asgn 3.
 ;;
 ;; @Todo: Add mappings of the cmds "expert", "ask", and "answer" to

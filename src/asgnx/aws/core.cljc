@@ -11,5 +11,5 @@
            (fn [err# d#]
              (put! rchan# [err# (walk/keywordize-keys
                                  (cljs.core/js->clj d#))])))
-         (catch :default e# (println "Error " e#)(put! rchan# [e# nil]))))
+         (catch :default e# (println "hey I modified this: Error " e#)(put! rchan# [e# nil]))))
     rchan#))

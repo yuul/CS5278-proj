@@ -186,68 +186,43 @@
           smgr   (kvstore/create state)
           system {:state-mgr smgr
                   :effect-handlers ehdlrs}]
-      (is (= "There are no experts on that topic."
+      (is (= "This office does not exist"
              (<!! (handle-message
                     system
                     "test-user"
-                    "ask food best burger in nashville"))))
-      (is (= "test-user is now an expert on food."
+                    "appointment ABC 7"))))
+      (is (= "There are no appointments available at this time"
              (<!! (handle-message
                     system
                     "test-user"
-                    "expert food"))))
-      (is (= "Asking 1 expert(s) for an answer to: \"what burger\""
+                    "appointment UCC 7"))))
+      (is (= "This time is available. To schedule your appointment, call (615)322-2571 or visit https://www.vanderbilt.edu/ucc/"
              (<!! (handle-message
                     system
                     "test-user"
-                    "ask food what burger"))))
-      (is (= "what burger"
-             (<!! (pending-send-msgs system "test-user"))))
-      (is (= "test-user2 is now an expert on food."
-             (<!! (handle-message
-                    system
-                    "test-user2"
-                    "expert food"))))
-      (is (= "Asking 2 expert(s) for an answer to: \"what burger\""
+                    "appointment UCC 9"))))
+      (is (= "This office does not exist"
              (<!! (handle-message
                     system
                     "test-user"
-                    "ask food what burger"))))
-      (is (= "what burger"
-             (<!! (pending-send-msgs system "test-user"))))
-      (is (= "what burger"
-             (<!! (pending-send-msgs system "test-user2"))))
-      (is (= "You must ask a valid question."
+                    "location AB"))))
+      (is (= "The Career Center is located at Vanderbilt University Student Life Center, 2nd Floor 310 25th Ave. South, Suite 220, Nashville, TN 37240. It is open from 8am to 5pm"
              (<!! (handle-message
                     system
                     "test-user"
-                    "ask food "))))
-      (is (= "test-user is now an expert on nashville."
+                    "location Career"))))
+      (is (= "This office does not exist"
              (<!! (handle-message
                     system
                     "test-user"
-                    "expert nashville"))))
-      (is (= "Asking 1 expert(s) for an answer to: \"what bus\""
+                    "contact AB"))))
+      (is (= "The phone number of the University Registrar is: (615)322-7701 and the email is university.registrar@vanderbilt.edu"
              (<!! (handle-message
                     system
-                    "test-user2"
-                    "ask nashville what bus"))))
-      (is (= "what bus"
-             (<!! (pending-send-msgs system "test-user"))))
-      (is (= "Your answer was sent."
-             (<!! (handle-message
-                   system
-                   "test-user"
-                   "answer the blue bus"))))
-      (is (= "the blue bus"
-             (<!! (pending-send-msgs system "test-user2"))))
-      (is (= "You did not provide an answer."
-             (<!! (handle-message
-                   system
-                   "test-user"
-                   "answer"))))
-      (is (= "You haven't been asked a question."
-             (<!! (handle-message
-                   system
-                   "test-user3"
-                   "answer the blue bus")))))))
+                    "test-user"
+                    "contact Registrar"))))
+      (is (= "The phone number of the University Counseling Center is: (615)322-2571 and no email is available"
+            (<!! (handle-message
+                    system
+                    "test-user"
+                    "contact UCC")))))))
